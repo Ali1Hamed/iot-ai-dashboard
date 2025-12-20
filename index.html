@@ -261,7 +261,7 @@
             color: #34d399;
         }
 
-        /* Row 2: Small Track Cards + Gender Line Chart */
+        /* Row 2: Unified Height for Track Cards & Gender Chart */
         .row-2 {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
@@ -269,14 +269,25 @@
             margin-bottom: 30px;
         }
 
+        .row-2>* {
+            height: 120px;
+            /* Unified fixed height */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
         .track-card-small {
             background: var(--bg-card);
             border-radius: 12px;
-            padding: 12px 16px;
+            padding: 16px 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
+            flex-direction: row;
+            /* Horizontal layout for icons and text */
             align-items: center;
-            gap: 12px;
+            justify-content: flex-start;
+            gap: 20px;
             transition: all 0.3s ease;
         }
 
@@ -294,42 +305,49 @@
         }
 
         .track-icon-small {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
-        }
-
-        .track-card-small.gp .track-icon-small {
-            background: rgba(14, 165, 233, 0.2);
+            font-size: 28px;
+            flex-shrink: 0;
+            background: rgba(14, 165, 233, 0.1);
         }
 
         .track-card-small.hs .track-icon-small {
-            background: rgba(99, 102, 241, 0.2);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .track-info-small {
+            flex-grow: 1;
         }
 
         .track-info-small h3 {
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            white-space: nowrap;
         }
 
         .track-stats-small {
             display: flex;
+            justify-content: space-between;
             gap: 12px;
+            width: 100%;
         }
 
         .track-stat-small {
             text-align: center;
+            flex: 1;
         }
 
         .track-stat-value-small {
-            font-size: 16px;
+            font-size: 20px;
             font-weight: 700;
             color: var(--primary);
+            line-height: 1;
         }
 
         .track-card-small.hs .track-stat-value-small {
@@ -337,12 +355,24 @@
         }
 
         .track-stat-label-small {
-            font-size: 9px;
+            font-size: 10px;
             color: var(--text-secondary);
+            margin-top: 4px;
         }
 
         .chart-container.mini {
-            height: 100px;
+            height: 70px;
+            /* Reduced to fit in the 120px parent along with title */
+            width: 100%;
+        }
+
+        .row-2 .chart-card {
+            padding: 12px 20px;
+            justify-content: space-between;
+        }
+
+        .row-2 .chart-header {
+            margin-bottom: 4px;
         }
 
         /* Row 3: Timeline + Top 10 Charts */
