@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2025 Egypt IoT & AI Challenge Dashboard</title>
+    <title>2025 Egypt AI & IoT Challenge Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -39,7 +40,6 @@
             overflow-x: hidden;
         }
 
-        /* Animated Background */
         .bg-animation {
             position: fixed;
             top: 0;
@@ -57,7 +57,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: 
+            background:
                 radial-gradient(circle at 20% 80%, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 40% 40%, rgba(34, 211, 238, 0.05) 0%, transparent 40%);
@@ -65,11 +65,17 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.1) rotate(5deg); }
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            50% {
+                transform: scale(1.1) rotate(5deg);
+            }
         }
 
-        /* Header */
         .header {
             background: linear-gradient(180deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.9) 100%);
             backdrop-filter: blur(20px);
@@ -132,18 +138,24 @@
         }
 
         @keyframes glow {
-            0%, 100% { box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3); }
-            50% { box-shadow: 0 4px 30px rgba(14, 165, 233, 0.6); }
+
+            0%,
+            100% {
+                box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 4px 30px rgba(14, 165, 233, 0.6);
+            }
         }
 
-        /* Main Container */
         .container {
             max-width: 1800px;
             margin: 0 auto;
             padding: 30px 40px;
         }
 
-        /* KPI Cards */
+        /* KPI Cards - Row 1 */
         .kpi-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -204,11 +216,25 @@
             margin-bottom: 16px;
         }
 
-        .kpi-card:nth-child(1) .kpi-icon { background: rgba(14, 165, 233, 0.2); }
-        .kpi-card:nth-child(2) .kpi-icon { background: rgba(34, 211, 238, 0.2); }
-        .kpi-card:nth-child(3) .kpi-icon { background: rgba(16, 185, 129, 0.2); }
-        .kpi-card:nth-child(4) .kpi-icon { background: rgba(245, 158, 11, 0.2); }
-        .kpi-card:nth-child(5) .kpi-icon { background: rgba(139, 92, 246, 0.2); }
+        .kpi-card:nth-child(1) .kpi-icon {
+            background: rgba(14, 165, 233, 0.2);
+        }
+
+        .kpi-card:nth-child(2) .kpi-icon {
+            background: rgba(34, 211, 238, 0.2);
+        }
+
+        .kpi-card:nth-child(3) .kpi-icon {
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .kpi-card:nth-child(4) .kpi-icon {
+            background: rgba(245, 158, 11, 0.2);
+        }
+
+        .kpi-card:nth-child(5) .kpi-icon {
+            background: rgba(139, 92, 246, 0.2);
+        }
 
         .kpi-value {
             font-size: 36px;
@@ -223,7 +249,7 @@
             font-weight: 500;
         }
 
-        .kpi-change {
+        .kpi-badge {
             position: absolute;
             top: 24px;
             right: 24px;
@@ -231,18 +257,103 @@
             padding: 4px 10px;
             border-radius: 20px;
             font-weight: 600;
-        }
-
-        .kpi-change.up {
             background: rgba(16, 185, 129, 0.2);
             color: #34d399;
         }
 
-        /* Charts Grid */
-        .charts-grid {
+        /* Row 2: Small Track Cards + Gender Line Chart */
+        .row-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .track-card-small {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .track-card-small:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .track-card-small.gp {
+            border-left: 4px solid var(--primary);
+        }
+
+        .track-card-small.hs {
+            border-left: 4px solid var(--secondary);
+        }
+
+        .track-icon-small {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .track-card-small.gp .track-icon-small {
+            background: rgba(14, 165, 233, 0.2);
+        }
+
+        .track-card-small.hs .track-icon-small {
+            background: rgba(99, 102, 241, 0.2);
+        }
+
+        .track-info-small h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .track-stats-small {
+            display: flex;
+            gap: 16px;
+        }
+
+        .track-stat-small {
+            text-align: center;
+        }
+
+        .track-stat-value-small {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .track-card-small.hs .track-stat-value-small {
+            color: var(--secondary);
+        }
+
+        .track-stat-label-small {
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        /* Row 3: Timeline + Top 10 Charts */
+        .row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* Row 4: Last Row - Marketing, Age, Ads */
+        .row-4 {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
+            gap: 20px;
             margin-bottom: 30px;
         }
 
@@ -259,127 +370,50 @@
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .chart-card.span-2 {
-            grid-column: span 2;
-        }
-
         .chart-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
 
         .chart-title {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             color: var(--text-primary);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .chart-title-icon {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             background: rgba(14, 165, 233, 0.2);
-            border-radius: 8px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 14px;
         }
 
         .chart-container {
             position: relative;
-            height: 280px;
-        }
-
-        .chart-container.small {
             height: 220px;
         }
 
-        /* Track Comparison Cards */
-        .track-comparison {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
+        .chart-container.tall {
+            height: 260px;
         }
 
-        .track-card {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 28px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            transition: all 0.3s ease;
-        }
-
-        .track-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .track-card.gp {
-            border-left: 4px solid var(--primary);
-        }
-
-        .track-card.hs {
-            border-left: 4px solid var(--secondary);
-        }
-
-        .track-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-        }
-
-        .track-card.gp .track-icon {
-            background: rgba(14, 165, 233, 0.2);
-        }
-
-        .track-card.hs .track-icon {
-            background: rgba(99, 102, 241, 0.2);
-        }
-
-        .track-info h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .track-stats {
-            display: flex;
-            gap: 24px;
-        }
-
-        .track-stat {
-            text-align: center;
-        }
-
-        .track-stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        .track-card.hs .track-stat-value {
-            color: var(--secondary);
-        }
-
-        .track-stat-label {
+        .total-badge {
+            background: var(--gradient-primary);
+            padding: 6px 14px;
+            border-radius: 20px;
             font-size: 12px;
-            color: var(--text-secondary);
+            font-weight: 600;
         }
 
-        /* Footer */
         .footer {
             text-align: center;
             padding: 30px;
@@ -389,7 +423,6 @@
             margin-top: 20px;
         }
 
-        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -408,24 +441,25 @@
             background: var(--primary);
         }
 
-        /* Animation on load */
         .fade-in {
             animation: fadeIn 0.6s ease-out forwards;
             opacity: 0;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
 
-        .kpi-card:nth-child(1) { animation-delay: 0.1s; }
-        .kpi-card:nth-child(2) { animation-delay: 0.15s; }
-        .kpi-card:nth-child(3) { animation-delay: 0.2s; }
-        .kpi-card:nth-child(4) { animation-delay: 0.25s; }
-        .kpi-card:nth-child(5) { animation-delay: 0.3s; }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="bg-animation"></div>
 
@@ -435,7 +469,7 @@
             <div class="logo-section">
                 <div class="logo-icon">🚀</div>
                 <div class="logo-text">
-                    <h1>2025 Egypt IoT & AI Challenge</h1>
+                    <h1>2025 Egypt AI & IoT Challenge</h1>
                     <p>Registration Analytics Dashboard</p>
                 </div>
             </div>
@@ -443,114 +477,106 @@
         </div>
     </header>
 
-    <!-- Main Container -->
     <main class="container">
-        <!-- KPI Cards -->
+        <!-- Row 1: KPI Cards (No Active/Growing labels) -->
         <section class="kpi-grid">
-            <div class="kpi-card fade-in">
+            <div class="kpi-card fade-in" style="animation-delay: 0.1s">
                 <div class="kpi-icon">👥</div>
                 <div class="kpi-value" id="totalTeams">387</div>
                 <div class="kpi-label">Total Teams Registered</div>
-                <span class="kpi-change up">Active</span>
             </div>
-            <div class="kpi-card accent fade-in">
+            <div class="kpi-card accent fade-in" style="animation-delay: 0.15s">
                 <div class="kpi-icon">🎓</div>
                 <div class="kpi-value" id="totalMembers">1,507</div>
                 <div class="kpi-label">Total Participants</div>
-                <span class="kpi-change up">Growing</span>
             </div>
-            <div class="kpi-card success fade-in">
+            <div class="kpi-card success fade-in" style="animation-delay: 0.2s">
                 <div class="kpi-icon">✅</div>
                 <div class="kpi-value" id="validTeams">241</div>
                 <div class="kpi-label">Valid Registrations</div>
-                <span class="kpi-change up">62.3%</span>
+                <span class="kpi-badge">62.3%</span>
             </div>
-            <div class="kpi-card warning fade-in">
+            <div class="kpi-card warning fade-in" style="animation-delay: 0.25s">
                 <div class="kpi-icon">👨‍🏫</div>
                 <div class="kpi-value" id="supervisors">312</div>
                 <div class="kpi-label">Supervisors</div>
-                <span class="kpi-change up">Active</span>
             </div>
-            <div class="kpi-card purple fade-in">
+            <div class="kpi-card purple fade-in" style="animation-delay: 0.3s">
                 <div class="kpi-icon">🏛️</div>
                 <div class="kpi-value" id="universities">89</div>
                 <div class="kpi-label">Universities & Schools</div>
-                <span class="kpi-change up">Nationwide</span>
             </div>
         </section>
 
-        <!-- Track Comparison -->
-        <section class="track-comparison">
-            <div class="track-card gp fade-in" style="animation-delay: 0.35s">
-                <div class="track-icon">🎓</div>
-                <div class="track-info">
+        <!-- Row 2: Small Track Cards + Gender Line Chart -->
+        <section class="row-2">
+            <div class="track-card-small gp fade-in" style="animation-delay: 0.35s">
+                <div class="track-icon-small">🎓</div>
+                <div class="track-info-small">
                     <h3>Graduation Projects Track</h3>
-                    <div class="track-stats">
-                        <div class="track-stat">
-                            <div class="track-stat-value">241</div>
-                            <div class="track-stat-label">Teams</div>
+                    <div class="track-stats-small">
+                        <div class="track-stat-small">
+                            <div class="track-stat-value-small">241</div>
+                            <div class="track-stat-label-small">Teams</div>
                         </div>
-                        <div class="track-stat">
-                            <div class="track-stat-value">965</div>
-                            <div class="track-stat-label">Members</div>
+                        <div class="track-stat-small">
+                            <div class="track-stat-value-small">965</div>
+                            <div class="track-stat-label-small">Members</div>
                         </div>
-                        <div class="track-stat">
-                            <div class="track-stat-value">198</div>
-                            <div class="track-stat-label">Valid</div>
+                        <div class="track-stat-small">
+                            <div class="track-stat-value-small">198</div>
+                            <div class="track-stat-label-small">Valid</div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="track-card hs fade-in" style="animation-delay: 0.4s">
-                <div class="track-icon">🏫</div>
-                <div class="track-info">
+            <div class="track-card-small hs fade-in" style="animation-delay: 0.4s">
+                <div class="track-icon-small">🏫</div>
+                <div class="track-info-small">
                     <h3>High Schools Track</h3>
-                    <div class="track-stats">
-                        <div class="track-stat">
-                            <div class="track-stat-value">146</div>
-                            <div class="track-stat-label">Teams</div>
+                    <div class="track-stats-small">
+                        <div class="track-stat-small">
+                            <div class="track-stat-value-small">146</div>
+                            <div class="track-stat-label-small">Teams</div>
                         </div>
-                        <div class="track-stat">
-                            <div class="track-stat-value">542</div>
-                            <div class="track-stat-label">Members</div>
+                        <div class="track-stat-small">
+                            <div class="track-stat-value-small">542</div>
+                            <div class="track-stat-label-small">Members</div>
                         </div>
-                        <div class="track-stat">
-                            <div class="track-stat-value">112</div>
-                            <div class="track-stat-label">Valid</div>
+                        <div class="track-stat-small">
+                            <div class="track-stat-value-small">112</div>
+                            <div class="track-stat-label-small">Valid</div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- Charts Row 1 -->
-        <section class="charts-grid">
-            <div class="chart-card span-2 fade-in" style="animation-delay: 0.45s">
-                <div class="chart-header">
-                    <div class="chart-title">
-                        <span class="chart-title-icon">📈</span>
-                        Weekly Registration Timeline
-                    </div>
-                </div>
-                <div class="chart-container">
-                    <canvas id="timelineChart"></canvas>
-                </div>
-            </div>
-            <div class="chart-card fade-in" style="animation-delay: 0.5s">
+            <div class="chart-card fade-in" style="animation-delay: 0.45s">
                 <div class="chart-header">
                     <div class="chart-title">
                         <span class="chart-title-icon">👫</span>
                         Gender Distribution
                     </div>
                 </div>
-                <div class="chart-container small">
+                <div class="chart-container">
                     <canvas id="genderChart"></canvas>
                 </div>
             </div>
         </section>
 
-        <!-- Charts Row 2 -->
-        <section class="charts-grid">
+        <!-- Row 3: Timeline + Top 10 Governorates + Top 10 Universities -->
+        <section class="row-3">
+            <div class="chart-card fade-in" style="animation-delay: 0.5s">
+                <div class="chart-header">
+                    <div class="chart-title">
+                        <span class="chart-title-icon">📈</span>
+                        Weekly Registration
+                    </div>
+                    <div class="total-badge">Total: 1,507</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="timelineChart"></canvas>
+                </div>
+            </div>
             <div class="chart-card fade-in" style="animation-delay: 0.55s">
                 <div class="chart-header">
                     <div class="chart-title">
@@ -558,7 +584,7 @@
                         Top 10 Governorates
                     </div>
                 </div>
-                <div class="chart-container">
+                <div class="chart-container tall">
                     <canvas id="governoratesChart"></canvas>
                 </div>
             </div>
@@ -569,74 +595,60 @@
                         Top 10 Universities
                     </div>
                 </div>
-                <div class="chart-container">
+                <div class="chart-container tall">
                     <canvas id="universitiesChart"></canvas>
-                </div>
-            </div>
-            <div class="chart-card fade-in" style="animation-delay: 0.65s">
-                <div class="chart-header">
-                    <div class="chart-title">
-                        <span class="chart-title-icon">✅</span>
-                        Validation Status
-                    </div>
-                </div>
-                <div class="chart-container small">
-                    <canvas id="validationChart"></canvas>
                 </div>
             </div>
         </section>
 
-        <!-- Charts Row 3 -->
-        <section class="charts-grid">
-            <div class="chart-card fade-in" style="animation-delay: 0.7s">
+        <!-- Row 4: Marketing Channels, Age Distribution, Ads vs Normal Days -->
+        <section class="row-4">
+            <div class="chart-card fade-in" style="animation-delay: 0.65s">
                 <div class="chart-header">
                     <div class="chart-title">
                         <span class="chart-title-icon">📱</span>
                         Marketing Channels
                     </div>
                 </div>
-                <div class="chart-container">
+                <div class="chart-container tall">
                     <canvas id="marketingChart"></canvas>
                 </div>
             </div>
-            <div class="chart-card fade-in" style="animation-delay: 0.75s">
+            <div class="chart-card fade-in" style="animation-delay: 0.7s">
                 <div class="chart-header">
                     <div class="chart-title">
                         <span class="chart-title-icon">🎂</span>
                         Age Distribution
                     </div>
                 </div>
-                <div class="chart-container">
+                <div class="chart-container tall">
                     <canvas id="ageChart"></canvas>
                 </div>
             </div>
-            <div class="chart-card fade-in" style="animation-delay: 0.8s">
+            <div class="chart-card fade-in" style="animation-delay: 0.75s">
                 <div class="chart-header">
                     <div class="chart-title">
                         <span class="chart-title-icon">📢</span>
                         Ads vs Normal Days
                     </div>
                 </div>
-                <div class="chart-container">
+                <div class="chart-container tall">
                     <canvas id="adsChart"></canvas>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
-        <p>2025 Egypt IoT & AI Challenge Dashboard | Ministry of Communications and Information Technology | Generated with ❤️</p>
+        <p>2025 Egypt AI & IoT Challenge Dashboard | Ministry of Communications and Information Technology</p>
     </footer>
 
     <script>
-        // Chart.js Global Configuration
         Chart.defaults.color = '#94a3b8';
         Chart.defaults.font.family = 'Inter';
         Chart.defaults.plugins.legend.labels.usePointStyle = true;
-        Chart.defaults.plugins.legend.labels.padding = 20;
+        Chart.defaults.plugins.legend.labels.padding = 15;
 
-        // Color Palette
         const colors = {
             primary: '#0ea5e9',
             secondary: '#6366f1',
@@ -645,21 +657,61 @@
             warning: '#f59e0b',
             danger: '#ef4444',
             purple: '#8b5cf6',
-            pink: '#ec4899',
-            gradient1: ['rgba(14, 165, 233, 0.8)', 'rgba(14, 165, 233, 0.2)'],
-            gradient2: ['rgba(99, 102, 241, 0.8)', 'rgba(99, 102, 241, 0.2)']
+            pink: '#ec4899'
         };
 
-        // Timeline Chart (Weekly)
+        // Gender Distribution - LINE Chart
+        const genderCtx = document.getElementById('genderChart').getContext('2d');
+        new Chart(genderCtx, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8'],
+                datasets: [
+                    {
+                        label: 'Male',
+                        data: [18, 32, 45, 62, 55, 68, 48, 16],
+                        borderColor: colors.primary,
+                        backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4
+                    },
+                    {
+                        label: 'Female',
+                        data: [10, 13, 17, 27, 23, 27, 19, 7],
+                        borderColor: colors.pink,
+                        backgroundColor: 'rgba(236, 72, 153, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom', labels: { boxWidth: 12, padding: 10, font: { size: 11 } } }
+                },
+                scales: {
+                    x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { font: { size: 10 } } },
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, beginAtZero: true, ticks: { font: { size: 10 } } }
+                }
+            }
+        });
+
+        // Timeline Chart 
         const timelineCtx = document.getElementById('timelineChart').getContext('2d');
-        const timelineGradient = timelineCtx.createLinearGradient(0, 0, 0, 250);
+        const timelineGradient = timelineCtx.createLinearGradient(0, 0, 0, 200);
         timelineGradient.addColorStop(0, 'rgba(14, 165, 233, 0.4)');
         timelineGradient.addColorStop(1, 'rgba(14, 165, 233, 0)');
 
         new Chart(timelineCtx, {
             type: 'line',
             data: {
-                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8'],
+                labels: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8'],
                 datasets: [{
                     label: 'Registrations',
                     data: [28, 45, 62, 89, 78, 95, 67, 23],
@@ -671,53 +723,21 @@
                     pointBackgroundColor: colors.primary,
                     pointBorderColor: '#fff',
                     pointBorderWidth: 2,
-                    pointRadius: 6,
-                    pointHoverRadius: 8
+                    pointRadius: 5
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
-                    x: {
-                        grid: { color: 'rgba(255,255,255,0.05)' }
-                    },
-                    y: {
-                        grid: { color: 'rgba(255,255,255,0.05)' },
-                        beginAtZero: true
-                    }
+                    x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { font: { size: 10 } } },
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, beginAtZero: true, ticks: { font: { size: 10 } } }
                 }
             }
         });
 
-        // Gender Distribution Chart
-        new Chart(document.getElementById('genderChart'), {
-            type: 'doughnut',
-            data: {
-                labels: ['Male', 'Female'],
-                datasets: [{
-                    data: [68, 32],
-                    backgroundColor: [colors.primary, colors.pink],
-                    borderWidth: 0,
-                    hoverOffset: 10
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '70%',
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }
-        });
-
-        // Governorates Chart (Top 10)
+        // Governorates Chart
         new Chart(document.getElementById('governoratesChart'), {
             type: 'bar',
             data: {
@@ -730,79 +750,41 @@
                         colors.warning, colors.purple, colors.pink, colors.danger,
                         '#14b8a6', '#f97316'
                     ],
-                    borderRadius: 6
+                    borderRadius: 4
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 indexAxis: 'y',
-                plugins: {
-                    legend: { display: false }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
-                    x: {
-                        grid: { color: 'rgba(255,255,255,0.05)' },
-                        beginAtZero: true
-                    },
-                    y: {
-                        grid: { display: false }
-                    }
+                    x: { grid: { color: 'rgba(255,255,255,0.05)' }, beginAtZero: true, ticks: { font: { size: 10 } } },
+                    y: { grid: { display: false }, ticks: { font: { size: 10 } } }
                 }
             }
         });
 
-        // Universities Chart (Top 10)
+        // Universities Chart
         new Chart(document.getElementById('universitiesChart'), {
             type: 'bar',
             data: {
-                labels: ['Cairo Univ.', 'Helwan Univ.', 'Ain Shams', 'Alexandria', 'Mansoura', 'AAST', 'Zagazig', 'Benha', 'MSA', 'MIU'],
+                labels: ['Cairo Univ.', 'Helwan', 'Ain Shams', 'Alexandria', 'Mansoura', 'AAST', 'Zagazig', 'Benha', 'MSA', 'MIU'],
                 datasets: [{
                     label: 'Teams',
                     data: [32, 28, 25, 22, 19, 18, 16, 14, 12, 11],
                     backgroundColor: colors.secondary,
-                    borderRadius: 6
+                    borderRadius: 4
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 indexAxis: 'y',
-                plugins: {
-                    legend: { display: false }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
-                    x: {
-                        grid: { color: 'rgba(255,255,255,0.05)' },
-                        beginAtZero: true
-                    },
-                    y: {
-                        grid: { display: false }
-                    }
-                }
-            }
-        });
-
-        // Validation Status Chart
-        new Chart(document.getElementById('validationChart'), {
-            type: 'doughnut',
-            data: {
-                labels: ['Valid', 'Invalid', 'To be seen'],
-                datasets: [{
-                    data: [241, 89, 57],
-                    backgroundColor: [colors.success, colors.danger, colors.warning],
-                    borderWidth: 0,
-                    hoverOffset: 10
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '65%',
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
+                    x: { grid: { color: 'rgba(255,255,255,0.05)' }, beginAtZero: true, ticks: { font: { size: 10 } } },
+                    y: { grid: { display: false }, ticks: { font: { size: 10 } } }
                 }
             }
         });
@@ -815,27 +797,17 @@
                 datasets: [{
                     label: 'Registrations',
                     data: [156, 87, 54, 42, 28, 20],
-                    backgroundColor: [
-                        '#1877f2', '#0a66c2', colors.success, 
-                        colors.warning, '#e4405f', colors.purple
-                    ],
-                    borderRadius: 6
+                    backgroundColor: ['#1877f2', '#0a66c2', colors.success, colors.warning, '#e4405f', colors.purple],
+                    borderRadius: 4
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
-                    x: {
-                        grid: { display: false }
-                    },
-                    y: {
-                        grid: { color: 'rgba(255,255,255,0.05)' },
-                        beginAtZero: true
-                    }
+                    x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, beginAtZero: true, ticks: { font: { size: 10 } } }
                 }
             }
         });
@@ -849,23 +821,16 @@
                     label: 'Participants',
                     data: [45, 89, 156, 287, 312, 89, 29],
                     backgroundColor: colors.accent,
-                    borderRadius: 6
+                    borderRadius: 4
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false }
-                },
+                plugins: { legend: { display: false } },
                 scales: {
-                    x: {
-                        grid: { display: false }
-                    },
-                    y: {
-                        grid: { color: 'rgba(255,255,255,0.05)' },
-                        beginAtZero: true
-                    }
+                    x: { grid: { display: false }, ticks: { font: { size: 10 } } },
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, beginAtZero: true, ticks: { font: { size: 10 } } }
                 }
             }
         });
@@ -880,37 +845,28 @@
                         label: 'Ads Days',
                         data: [168, 98],
                         backgroundColor: colors.primary,
-                        borderRadius: 6
+                        borderRadius: 4
                     },
                     {
                         label: 'Normal Days',
                         data: [73, 48],
                         backgroundColor: colors.purple,
-                        borderRadius: 6
+                        borderRadius: 4
                     }
                 ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'bottom'
-                    }
-                },
+                plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, padding: 10, font: { size: 11 } } } },
                 scales: {
-                    x: {
-                        grid: { display: false }
-                    },
-                    y: {
-                        grid: { color: 'rgba(255,255,255,0.05)' },
-                        beginAtZero: true
-                    }
+                    x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, beginAtZero: true, ticks: { font: { size: 10 } } }
                 }
             }
         });
 
-        // Animate numbers on load
+        // Animate numbers
         function animateValue(id, start, end, duration) {
             const obj = document.getElementById(id);
             if (!obj) return;
@@ -920,14 +876,11 @@
                 const progress = Math.min((timestamp - startTimestamp) / duration, 1);
                 const value = Math.floor(progress * (end - start) + start);
                 obj.innerHTML = value.toLocaleString();
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
+                if (progress < 1) window.requestAnimationFrame(step);
             };
             window.requestAnimationFrame(step);
         }
 
-        // Trigger animations after page load
         window.addEventListener('load', () => {
             animateValue('totalTeams', 0, 387, 1500);
             animateValue('totalMembers', 0, 1507, 1500);
@@ -937,4 +890,5 @@
         });
     </script>
 </body>
+
 </html>
