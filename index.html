@@ -342,7 +342,7 @@
         }
 
         .chart-container.mini {
-            height: 140px;
+            height: 100px;
         }
 
         /* Row 3: Timeline + Top 10 Charts */
@@ -672,11 +672,11 @@
                 labels: ['Male', 'Female'],
                 datasets: [
                     {
-                        label: 'Gender Count',
-                        data: [1025, 482], // 68% and 32% of 1507 participants
+                        label: 'Gender %',
+                        data: [68, 32],
                         backgroundColor: [colors.primary, colors.pink],
                         borderRadius: 4,
-                        barThickness: 40
+                        barThickness: 15
                     }
                 ]
             },
@@ -685,20 +685,46 @@
                 maintainAspectRatio: false,
                 indexAxis: 'y',
                 plugins: {
-                    legend: { display: false }
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => ` ${context.raw}%`
+                        }
+                    }
                 },
                 scales: {
                     x: {
-                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        grid: { display: false },
                         beginAtZero: true,
-                        ticks: { font: { size: 10 } }
+                        max: 100,
+                        ticks: {
+                            font: { size: 9 },
+                            callback: (value) => value + '%'
+                        }
                     },
                     y: {
                         grid: { display: false },
-                        ticks: { font: { size: 11, weight: '600' } }
+                        ticks: { font: { size: 10, weight: '600' } }
                     }
                 }
-            }
+            },
+            plugins: [{
+                id: 'datalabels',
+                afterDatasetsDraw(chart) {
+                    const { ctx, data } = chart;
+                    ctx.save();
+                    ctx.font = 'bold 10px Inter';
+                    ctx.fillStyle = '#f1f5f9';
+                    ctx.textAlign = 'left';
+                    ctx.textBaseline = 'middle';
+
+                    chart.getDatasetMeta(0).data.forEach((bar, index) => {
+                        const value = data.datasets[0].data[index] + '%';
+                        ctx.fillText(value, bar.x + 5, bar.y);
+                    });
+                    ctx.restore();
+                }
+            }]
         });
 
         // Timeline Chart 
