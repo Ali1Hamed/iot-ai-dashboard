@@ -271,36 +271,36 @@
 
         .track-card-small {
             background: var(--bg-card);
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 12px 16px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 12px;
             transition: all 0.3s ease;
         }
 
         .track-card-small:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
         }
 
         .track-card-small.gp {
-            border-left: 4px solid var(--primary);
+            border-left: 3px solid var(--primary);
         }
 
         .track-card-small.hs {
-            border-left: 4px solid var(--secondary);
+            border-left: 3px solid var(--secondary);
         }
 
         .track-icon-small {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 18px;
         }
 
         .track-card-small.gp .track-icon-small {
@@ -312,14 +312,14 @@
         }
 
         .track-info-small h3 {
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .track-stats-small {
             display: flex;
-            gap: 16px;
+            gap: 12px;
         }
 
         .track-stat-small {
@@ -327,7 +327,7 @@
         }
 
         .track-stat-value-small {
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--primary);
         }
@@ -337,8 +337,12 @@
         }
 
         .track-stat-label-small {
-            font-size: 10px;
+            font-size: 9px;
             color: var(--text-secondary);
+        }
+
+        .chart-container.mini {
+            height: 140px;
         }
 
         /* Row 3: Timeline + Top 10 Charts */
@@ -557,7 +561,7 @@
                         Gender Distribution
                     </div>
                 </div>
-                <div class="chart-container">
+                <div class="chart-container mini">
                     <canvas id="genderChart"></canvas>
                 </div>
             </div>
