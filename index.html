@@ -602,13 +602,12 @@
             <div class="chart-card fade-in" style="animation-delay: 0.5s">
                 <div class="chart-header">
                     <div class="chart-title">
-                        <span class="chart-title-icon">📈</span>
-                        Weekly Registration
+                        <span class="chart-title-icon">📱</span>
+                        Marketing Channels
                     </div>
-                    <div class="total-badge">Total: 1,507</div>
                 </div>
-                <div class="chart-container">
-                    <canvas id="timelineChart"></canvas>
+                <div class="chart-container tall">
+                    <canvas id="marketingChart"></canvas>
                 </div>
             </div>
             <div class="chart-card fade-in" style="animation-delay: 0.55s">
@@ -635,42 +634,7 @@
             </div>
         </section>
 
-        <!-- Row 4: Marketing Channels, Age Distribution, Ads vs Normal Days -->
-        <section class="row-4">
-            <div class="chart-card fade-in" style="animation-delay: 0.65s">
-                <div class="chart-header">
-                    <div class="chart-title">
-                        <span class="chart-title-icon">📱</span>
-                        Marketing Channels
-                    </div>
-                </div>
-                <div class="chart-container tall">
-                    <canvas id="marketingChart"></canvas>
-                </div>
-            </div>
-            <div class="chart-card fade-in" style="animation-delay: 0.7s">
-                <div class="chart-header">
-                    <div class="chart-title">
-                        <span class="chart-title-icon">🎂</span>
-                        Age Distribution
-                    </div>
-                </div>
-                <div class="chart-container tall">
-                    <canvas id="ageChart"></canvas>
-                </div>
-            </div>
-            <div class="chart-card fade-in" style="animation-delay: 0.75s">
-                <div class="chart-header">
-                    <div class="chart-title">
-                        <span class="chart-title-icon">📢</span>
-                        Ads vs Normal Days
-                    </div>
-                </div>
-                <div class="chart-container tall">
-                    <canvas id="adsChart"></canvas>
-                </div>
-            </div>
-        </section>
+
     </main>
 
     <footer class="footer">
@@ -757,40 +721,7 @@
             }]
         });
 
-        // Timeline Chart 
-        const timelineCtx = document.getElementById('timelineChart').getContext('2d');
-        const timelineGradient = timelineCtx.createLinearGradient(0, 0, 0, 200);
-        timelineGradient.addColorStop(0, 'rgba(14, 165, 233, 0.4)');
-        timelineGradient.addColorStop(1, 'rgba(14, 165, 233, 0)');
 
-        new Chart(timelineCtx, {
-            type: 'line',
-            data: {
-                labels: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7', 'W8'],
-                datasets: [{
-                    label: 'Registrations',
-                    data: [28, 45, 62, 89, 78, 95, 67, 23],
-                    borderColor: colors.primary,
-                    backgroundColor: timelineGradient,
-                    borderWidth: 3,
-                    fill: true,
-                    tension: 0.4,
-                    pointBackgroundColor: colors.primary,
-                    pointBorderColor: '#fff',
-                    pointBorderWidth: 2,
-                    pointRadius: 5
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { font: { size: 10 } } },
-                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, beginAtZero: true, ticks: { font: { size: 10 } } }
-                }
-            }
-        });
 
         // Governorates Chart
         new Chart(document.getElementById('governoratesChart'), {
@@ -867,59 +798,7 @@
             }
         });
 
-        // Age Distribution Chart
-        new Chart(document.getElementById('ageChart'), {
-            type: 'bar',
-            data: {
-                labels: ['14-16', '16-18', '18-20', '20-22', '22-24', '24-26', '26-28'],
-                datasets: [{
-                    label: 'Participants',
-                    data: [45, 89, 156, 287, 312, 89, 29],
-                    backgroundColor: colors.accent,
-                    borderRadius: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: { grid: { display: false }, ticks: { font: { size: 10 } } },
-                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, beginAtZero: true, ticks: { font: { size: 10 } } }
-                }
-            }
-        });
 
-        // Ads vs Normal Days Chart
-        new Chart(document.getElementById('adsChart'), {
-            type: 'bar',
-            data: {
-                labels: ['GP Track', 'HS Track'],
-                datasets: [
-                    {
-                        label: 'Ads Days',
-                        data: [168, 98],
-                        backgroundColor: colors.primary,
-                        borderRadius: 4
-                    },
-                    {
-                        label: 'Normal Days',
-                        data: [73, 48],
-                        backgroundColor: colors.purple,
-                        borderRadius: 4
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { position: 'bottom', labels: { boxWidth: 12, padding: 10, font: { size: 11 } } } },
-                scales: {
-                    x: { grid: { display: false }, ticks: { font: { size: 11 } } },
-                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, beginAtZero: true, ticks: { font: { size: 10 } } }
-                }
-            }
-        });
 
         // Animate numbers
         function animateValue(id, start, end, duration) {
