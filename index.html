@@ -158,7 +158,7 @@
         /* KPI Cards - Row 1 */
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -258,21 +258,6 @@
             border-radius: 20px;
             font-weight: 600;
             background: rgba(16, 185, 129, 0.2);
-            color: #34d399;
-        }
-
-        /* Row 2: Unified Height for Track Cards & Gender Chart */
-        .row-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .row-2>* {
-            height: 120px;
-            /* Unified fixed height */
-            display: flex;
             flex-direction: column;
             justify-content: center;
         }
@@ -375,10 +360,22 @@
             margin-bottom: 4px;
         }
 
-        /* Row 3: Timeline + Top 10 Charts */
+        /* Row 2: Tracks + Gender */
+        .row-2 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .row-2>* {
+            min-height: 140px;
+        }
+
+        /* Row 3: Charts Grid 2x2 or 3x1 depends on content */
         .row-3 {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -562,7 +559,7 @@
         <section class="kpi-grid">
             <div class="kpi-card fade-in" style="animation-delay: 0.1s">
                 <div class="kpi-icon">👥</div>
-                <div class="kpi-value" id="totalTeams">387</div>
+                <div class="kpi-value" id="totalTeams">656</div>
                 <div class="kpi-label">Total Teams Registered</div>
             </div>
             <div class="kpi-card accent fade-in" style="animation-delay: 0.15s">
@@ -582,11 +579,16 @@
                 <div class="kpi-value" id="universities">89</div>
                 <div class="kpi-label">Universities & Schools</div>
             </div>
+            <div class="kpi-card accent fade-in" style="animation-delay: 0.35s">
+                <div class="kpi-icon">👔</div>
+                <div class="kpi-value" id="supervisors">0</div>
+                <div class="kpi-label">Supervisors</div>
+            </div>
         </section>
 
-        <!-- Row 2: Small Track Cards + Gender Line Chart -->
+        <!-- Row 2: Tracks + Gender -->
         <section class="row-2" id="tracks-row">
-            <div class="track-card-small gp fade-in" style="animation-delay: 0.35s">
+            <div class="track-card-small gp fade-in" id="gp-card" style="animation-delay: 0.4s">
                 <div class="track-icon-small">🎓</div>
                 <div class="track-info-small">
                     <h3>Graduation Projects Track</h3>
@@ -606,10 +608,10 @@
                     </div>
                 </div>
             </div>
-            <div class="track-card-small hs fade-in" style="animation-delay: 0.4s">
+            <div class="track-card-small hs fade-in" id="hs-card" style="animation-delay: 0.45s">
                 <div class="track-icon-small">🏫</div>
                 <div class="track-info-small">
-                    <h3>High Schools Track</h3>
+                    <h3>High Schools</h3>
                     <div class="track-stats-small">
                         <div class="track-stat-small">
                             <div class="track-stat-value-small" id="hs-teams">146</div>
@@ -626,11 +628,11 @@
                     </div>
                 </div>
             </div>
-            <div class="chart-card fade-in" id="gender-card" style="animation-delay: 0.45s">
+            <div class="chart-card fade-in" id="gender-card" style="animation-delay: 0.5s">
                 <div class="chart-header">
                     <div class="chart-title">
                         <span class="chart-title-icon">👫</span>
-                        Gender Distribution
+                        Gender
                     </div>
                 </div>
                 <div class="chart-container mini">
@@ -639,7 +641,7 @@
             </div>
         </section>
 
-        <!-- Row 3: Timeline + Top 10 Governorates + Top 10 Universities -->
+        <!-- Row 3: Remaining Charts -->
         <section class="row-3">
             <div class="chart-card fade-in" id="marketing-card" style="animation-delay: 0.5s">
                 <div class="chart-header">
@@ -703,155 +705,68 @@
         const dashboardData = {
             "universities": {
                 "kpi": {
-                    "teams": 241,
-                    "members": 1063,
-                    "valid": 241,
-                    "institutions": 69,
-                    "supervisors": 0
+                    "teams": 256,
+                    "members": 1383,
+                    "valid": 230,
+                    "institutions": 71,
+                    "supervisors": 251
+                },
+                "gender": [63.6, 36.4],
+                "marketing": {
+                    "labels": ["Facebook", "LinkedIn", "Partner", "Others", "Emails", "Instagram"],
+                    "data": [103, 75, 16, 40, 18, 4]
+                },
+                "governorates": {
+                    "labels": ["Cairo", "Daqahliya", "Giza", "Alexandria", "Sharqiya", "Dakahlia", "Al-Sharqia", "Damietta", "Gharbiya", "Qalioubiya"],
+                    "data": [360, 219, 155, 87, 79, 79, 53, 37, 34, 34]
                 },
                 "top_institutions": {
-                    "labels": [
-                        "Mansoura University",
-                        "Helwan University",
-                        "Zagazig University",
-                        "Arab Academy for Science, Technology & Maritime Transport",
-                        "Arab Academy for Science, Technology & Maritime Transport, Smart Village Campus",
-                        "Cairo University",
-                        "Benha University",
-                        "Nile University",
-                        "Delta University for Science and Technology",
-                        "6th of October University"
-                    ],
-                    "data": [
-                        36,
-                        26,
-                        17,
-                        13,
-                        11,
-                        10,
-                        8,
-                        6,
-                        6,
-                        6
-                    ]
-                },
-                "marketing": {
-                    "labels": [
-                        "Facebook",
-                        "LinkedIn",
-                        "Phone Call",
-                        "Emails",
-                        "Instagram"
-                    ],
-                    "data": [
-                        94,
-                        75,
-                        48,
-                        20,
-                        4
-                    ]
+                    "labels": ["Mansoura University", "Helwan University", "AASTMT", "Zagazig University", "Cairo University", "Benha University", "Alexandria University", "Delta University", "HTI Institute", "Nile University"],
+                    "data": [40, 27, 25, 21, 14, 11, 7, 7, 6, 6]
                 }
             },
             "schools": {
                 "kpi": {
-                    "teams": 249,
-                    "members": 509,
-                    "valid": 227,
-                    "institutions": 56,
-                    "supervisors": 0
+                    "teams": 400,
+                    "members": 809,
+                    "valid": 342,
+                    "institutions": 86,
+                    "supervisors": 298
+                },
+                "gender": [57.7, 42.3],
+                "marketing": {
+                    "labels": ["Facebook", "LinkedIn", "Partner", "Others", "Emails", "Instagram"],
+                    "data": [163, 33, 52, 99, 23, 30]
+                },
+                "governorates": {
+                    "labels": ["Cairo", "Alexandria", "Giza", "Daqahliya", "Damietta", "Gharbia", "Kafr el-Sheikh", "Dakahlia", "Menofia", "Assiut"],
+                    "data": [144, 93, 71, 61, 39, 38, 33, 32, 30, 30]
                 },
                 "top_institutions": {
-                    "labels": [
-                        "Kafr El Shiekh STEM school",
-                        "STEM Red Sea",
-                        "Dakahlia STEM High School",
-                        "Alexandria STEM School",
-                        "STEM High School for Boys - 6th of October",
-                        "Stem October 11th district",
-                        "Gharbia STEM",
-                        "Qena STEM School",
-                        "Sharkya STEM school",
-                        "Maadi STEM high School"
-                    ],
-                    "data": [
-                        37,
-                        31,
-                        16,
-                        14,
-                        13,
-                        12,
-                        12,
-                        11,
-                        9,
-                        8
-                    ]
-                },
-                "marketing": {
-                    "labels": [
-                        "Facebook",
-                        "Phone Call",
-                        "Emails",
-                        "Instagram",
-                        "LinkedIn"
-                    ],
-                    "data": [
-                        100,
-                        83,
-                        36,
-                        16,
-                        14
-                    ]
+                    "labels": ["STEM Dakahlia", "STEM 6th of October", "STEM Kafr El Sheikh", "STEM Red Sea", "STEM Sharkya", "STEM Obour", "STEM Alexandria", "STEM Gharbia", "STEM Menofia", "STEM Minya"],
+                    "data": [78, 38, 37, 35, 19, 17, 17, 16, 14, 11]
                 }
             },
             "general": {
                 "kpi": {
-                    "teams": 490,
-                    "members": 1572,
-                    "valid": 468,
-                    "institutions": 125,
-                    "supervisors": 0
+                    "teams": 656,
+                    "members": 2192,
+                    "valid": 572,
+                    "institutions": 154,
+                    "supervisors": 549
+                },
+                "gender": [61.5, 38.5],
+                "marketing": {
+                    "labels": ["Facebook", "LinkedIn", "Partner", "Others", "Emails", "Instagram"],
+                    "data": [266, 108, 68, 139, 41, 34]
+                },
+                "governorates": {
+                    "labels": ["Cairo", "Daqahliya", "Giza", "Alexandria", "Dakahlia", "Sharqiya", "Damietta", "Al-Sharqia", "Gharbia", "Gharbiya"],
+                    "data": [504, 280, 226, 180, 111, 83, 76, 63, 54, 53]
                 },
                 "top_institutions": {
-                    "labels": [
-                        "Kafr El Shiekh STEM school",
-                        "Mansoura University",
-                        "STEM Red Sea",
-                        "Helwan University",
-                        "Zagazig University",
-                        "Dakahlia STEM High School",
-                        "Alexandria STEM School",
-                        "STEM High School for Boys - 6th of October",
-                        "Arab Academy for Science, Technology & Maritime Transport",
-                        "Gharbia STEM"
-                    ],
-                    "data": [
-                        37,
-                        36,
-                        31,
-                        26,
-                        17,
-                        16,
-                        14,
-                        13,
-                        13,
-                        12
-                    ]
-                },
-                "marketing": {
-                    "labels": [
-                        "Facebook",
-                        "Phone Call",
-                        "LinkedIn",
-                        "Emails",
-                        "Instagram"
-                    ],
-                    "data": [
-                        194,
-                        131,
-                        89,
-                        56,
-                        20
-                    ]
+                    "labels": ["STEM Dakahlia", "Mansoura University", "STEM 6th of October", "STEM Kafr El Sheikh", "STEM Red Sea", "Helwan University", "AASTMT", "Zagazig University", "STEM Sharkya", "STEM Obour"],
+                    "data": [78, 40, 38, 37, 35, 27, 25, 21, 19, 17]
                 }
             }
         };
@@ -868,7 +783,7 @@
                     labels: ['Male', 'Female'],
                     datasets: [{
                         label: 'Gender %',
-                        data: [68, 32],
+                        data: [61.7, 38.3],
                         backgroundColor: [colors.primary, colors.pink],
                         borderRadius: 4,
                         barThickness: 15
@@ -979,6 +894,7 @@
             // New KPI updates: Supervisors and Institutions
 
             animateValue('universities', parseInt(document.getElementById('universities').textContent.replace(/,/g, '') || 0), data.kpi.institutions, 500);
+            animateValue('supervisors', parseInt(document.getElementById('supervisors').textContent.replace(/,/g, '') || 0), data.kpi.supervisors, 500);
 
             // Update Labels for dynamic cards
             const instLabel = (tab === 'schools') ? 'Schools' : (tab === 'universities' ? 'Universities' : 'Universities & Schools');
@@ -990,25 +906,57 @@
 
             // Visibility Toggles
             const isGeneral = tab === 'general';
-            document.getElementById('tracks-row').style.display = isGeneral ? 'grid' : 'none';
-            document.getElementById('gender-card').style.display = isGeneral ? 'block' : 'none';
-            document.getElementById('governorates-card').style.display = isGeneral ? 'block' : 'none';
 
-            // Resize Grid logic for row-3
-            // Row 3 normally has 3 cols. If gov is hidden, it has 2 charts.
+            // Layout Logic:
+
+            // 1. tracks-row (Row 2) visibility
+            // It should be visible if ANY of its children are visible.
+            // GP, HS, Gender.
+            // Gender is always visible now? "Make Grad, HS, Gender in 1 row" -> always visible row?
+            // Let's keep Row 2 visible.
+            document.getElementById('tracks-row').style.display = 'grid';
+
+            // 2. Control individual cards
+            // GP Card: Visible on General OR Universities
+            document.getElementById('gp-card').style.display = (tab === 'general' || tab === 'universities') ? 'flex' : 'none';
+
+            // HS Card: Visible on General OR Schools
+            document.getElementById('hs-card').style.display = (tab === 'general' || tab === 'schools') ? 'flex' : 'none';
+
+            // Gender Card: Always visible
+            document.getElementById('gender-card').style.display = 'block';
+
+            // Governorates Card: Always visible
+            document.getElementById('governorates-card').style.display = 'block';
+
+            // Grid structure: Row 2 has 3 items in General, 2 in others. Row 3 has 3 items.
+            const row2 = document.getElementById('tracks-row');
             const row3 = document.querySelector('.row-3');
+
             if (isGeneral) {
-                row3.style.gridTemplateColumns = '1fr 1fr 1fr';
+                row2.style.gridTemplateColumns = 'repeat(3, 1fr)';
             } else {
-                row3.style.gridTemplateColumns = '1fr 1fr';
+                row2.style.gridTemplateColumns = 'repeat(2, 1fr)';
             }
+            row3.style.gridTemplateColumns = 'repeat(3, 1fr)';
 
             // Chart Updates
+
+            // Gender
+            if (data.gender) {
+                genderChart.data.datasets[0].data = data.gender;
+                genderChart.update();
+            }
 
             // Marketing
             marketingChart.data.labels = data.marketing.labels;
             marketingChart.data.datasets[0].data = data.marketing.data;
             marketingChart.update();
+
+            // Governorates
+            governoratesChart.data.labels = data.governorates.labels;
+            governoratesChart.data.datasets[0].data = data.governorates.data;
+            governoratesChart.update();
 
             // Top Institutions
             universitiesChart.data.labels = data.top_institutions.labels;
