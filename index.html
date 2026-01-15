@@ -565,7 +565,7 @@
             <div class="kpi-card accent fade-in" style="animation-delay: 0.15s">
                 <div class="kpi-icon">🎓</div>
                 <div class="kpi-value" id="totalMembers">2,025</div>
-                <div class="kpi-label">Total Participants</div>
+                <div class="kpi-label">Total Accepted Participants</div>
             </div>
             <div class="kpi-card success fade-in" style="animation-delay: 0.2s">
                 <div class="kpi-icon">✅</div>
@@ -712,8 +712,8 @@
                 },
                 "gender": [63.6, 36.4],
                 "marketing": {
-                    "labels": ["Facebook", "LinkedIn", "Partner", "Others", "Emails", "Instagram"],
-                    "data": [103, 75, 16, 40, 18, 4]
+                    "labels": ["Facebook", "LinkedIn", "MoM", "Emails", "Partner", "Instagram"],
+                    "data": [103, 75, 40, 18, 16, 4]
                 },
                 "governorates": {
                     "labels": ["Cairo", "Daqahliya", "Giza", "Alexandria", "Sharqiya", "Dakahlia", "Al-Sharqia", "Damietta", "Gharbiya", "Qalioubiya"],
@@ -734,8 +734,8 @@
                 },
                 "gender": [57.7, 42.3],
                 "marketing": {
-                    "labels": ["Facebook", "LinkedIn", "Partner", "Others", "Emails", "Instagram"],
-                    "data": [163, 33, 52, 99, 23, 30]
+                    "labels": ["Facebook", "MoM", "Partner", "LinkedIn", "Instagram", "Emails"],
+                    "data": [163, 99, 52, 33, 30, 23]
                 },
                 "governorates": {
                     "labels": ["Cairo", "Alexandria", "Giza", "Daqahliya", "Damietta", "Gharbia", "Kafr el-Sheikh", "Dakahlia", "Menofia", "Assiut"],
@@ -756,8 +756,8 @@
                 },
                 "gender": [61.5, 38.5],
                 "marketing": {
-                    "labels": ["Facebook", "LinkedIn", "Partner", "Others", "Emails", "Instagram"],
-                    "data": [266, 108, 68, 139, 41, 34]
+                    "labels": ["Facebook", "MoM", "LinkedIn", "Partner", "Emails", "Instagram"],
+                    "data": [266, 139, 108, 68, 41, 34]
                 },
                 "governorates": {
                     "labels": ["Cairo", "Daqahliya", "Giza", "Alexandria", "Dakahlia", "Sharqiya", "Damietta", "Al-Sharqia", "Gharbia", "Gharbiya"],
@@ -814,7 +814,7 @@
                     datasets: [{
                         label: 'Registrations',
                         data: [],
-                        backgroundColor: [colors.primary, colors.secondary, colors.success, colors.warning, colors.danger, colors.purple],
+                        backgroundColor: [colors.primary, colors.secondary, colors.success, colors.accent, colors.warning, colors.danger, colors.purple],
                         borderRadius: 4
                     }]
                 },
@@ -901,7 +901,7 @@
 
             // Calculate %
             const validPct = data.kpi.teams > 0 ? ((data.kpi.valid / data.kpi.teams) * 100).toFixed(1) + '%' : '0%';
-            document.querySelector('#validTeams + .kpi-label + .kpi-badge').textContent = validPct;
+            // Badge removed from HTML as requested
 
             // Visibility Toggles
             const isGeneral = tab === 'general';
@@ -925,8 +925,10 @@
             // Gender Card: Always visible
             document.getElementById('gender-card').style.display = 'block';
 
-            // Governorates Card: Always visible
+            // Row 3 Cards: Always visible
+            document.getElementById('marketing-card').style.display = 'block';
             document.getElementById('governorates-card').style.display = 'block';
+            document.getElementById('universities-card').style.display = 'block';
 
             // Grid structure: Row 2 has 3 items in General, 2 in others. Row 3 has 3 items.
             const row2 = document.getElementById('tracks-row');
@@ -948,8 +950,17 @@
             }
 
             // Marketing
+            const marketingColorMap = {
+                'Facebook': colors.primary,
+                'LinkedIn': colors.secondary,
+                'Partner': colors.success,
+                'Instagram': colors.accent,
+                'MoM': colors.warning,
+                'Emails': colors.danger
+            };
             marketingChart.data.labels = data.marketing.labels;
             marketingChart.data.datasets[0].data = data.marketing.data;
+            marketingChart.data.datasets[0].backgroundColor = data.marketing.labels.map(l => marketingColorMap[l] || colors.purple);
             marketingChart.update();
 
             // Governorates
