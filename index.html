@@ -166,11 +166,16 @@
         .kpi-card {
             background: var(--bg-card);
             border-radius: 16px;
-            padding: 24px;
+            padding: 30px 24px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .kpi-card:hover {
@@ -559,28 +564,23 @@
         <!-- Row 1: KPI Cards -->
         <section class="kpi-grid">
             <div class="kpi-card fade-in" style="animation-delay: 0.1s">
-                <div class="kpi-icon">👥</div>
                 <div class="kpi-value" id="totalTeams">656</div>
                 <div class="kpi-label">Total Teams Registered</div>
             </div>
             <div class="kpi-card accent fade-in" style="animation-delay: 0.15s">
-                <div class="kpi-icon">🎓</div>
                 <div class="kpi-value" id="totalMembers">2,025</div>
                 <div class="kpi-label">Total Accepted Participants</div>
             </div>
             <div class="kpi-card success fade-in" style="animation-delay: 0.2s">
-                <div class="kpi-icon">✅</div>
                 <div class="kpi-value" id="validTeams">241</div>
                 <div class="kpi-label">Acceptance teams</div>
             </div>
             <!-- Box Removed by User Request -->
             <div class="kpi-card purple fade-in" style="animation-delay: 0.3s">
-                <div class="kpi-icon">🏛️</div>
                 <div class="kpi-value" id="universities">89</div>
                 <div class="kpi-label">Universities & Schools</div>
             </div>
             <div class="kpi-card accent fade-in" style="animation-delay: 0.35s">
-                <div class="kpi-icon">👔</div>
                 <div class="kpi-value" id="supervisors">0</div>
                 <div class="kpi-label">Supervisors</div>
             </div>
