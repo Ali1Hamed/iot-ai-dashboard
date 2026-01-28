@@ -533,6 +533,38 @@
             color: white;
             box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
         }
+
+        /* Year Tabs */
+        .year-tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .year-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            padding: 8px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .year-btn:hover {
+            border-color: var(--primary);
+            color: var(--text-primary);
+        }
+
+        .year-btn.active {
+            background: white;
+            color: var(--bg-dark);
+            border-color: white;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
     </style>
 </head>
 
@@ -545,8 +577,8 @@
             <div class="logo-section">
                 <div class="logo-icon">🚀</div>
                 <div class="logo-text">
-                    <h1>2025 Egypt AI & IoT Challenge</h1>
-                    <p>Registration Analytics Dashboard</p>
+                    <h1>Egypt AI & IoT Challenge</h1>
+                    <p id="sub-header-text">Overall Registration Analytics Dashboard</p>
                 </div>
             </div>
             <div class="header-badge">📊 Live Dashboard</div>
@@ -554,11 +586,18 @@
     </header>
 
     <main class="container">
-        <!-- Tabs -->
+        <!-- Year Tabs -->
+        <div class="year-tabs-container">
+            <button class="year-btn active" onclick="switchYear('overall')">Overall</button>
+            <button class="year-btn" onclick="switchYear('2024')">2024</button>
+            <button class="year-btn" onclick="switchYear('2025')">2025</button>
+        </div>
+
+        <!-- Category Tabs -->
         <div class="tabs-container">
-            <button class="tab-btn active" onclick="switchTab('general')">General</button>
-            <button class="tab-btn" onclick="switchTab('universities')">Universities</button>
-            <button class="tab-btn" onclick="switchTab('schools')">Schools</button>
+            <button class="tab-btn active" id="btn-general" onclick="switchCategory('general')">General</button>
+            <button class="tab-btn" id="btn-universities" onclick="switchCategory('universities')">Universities</button>
+            <button class="tab-btn" id="btn-schools" onclick="switchCategory('schools')">Schools</button>
         </div>
 
         <!-- Row 1: KPI Cards -->
@@ -703,70 +742,208 @@
         };
 
         const dashboardData = {
-            "universities": {
-                "kpi": {
-                    "teams": 256,
-                    "members": 1302,
-                    "valid": 230,
-                    "institutions": 71,
-                    "supervisors": 251
+            "overall": {
+                "universities": {
+                    "kpi": {
+                        "teams": 415,
+                        "members": 2074,
+                        "valid": 379,
+                        "institutions": 131,
+                        "supervisors": 409
+                    },
+                    "gender": [64.8, 35.2],
+                    "marketing": {
+                        "labels": ["Facebook", "LinkedIn", "MoM", "Emails", "Partner", "Instagram"],
+                        "data": [164, 142, 62, 29, 25, 6]
+                    },
+                    "governorates": {
+                        "labels": ["Cairo", "Daqahliya", "Giza", "Alexandria", "Sharqiya", "Dakahlia", "Al-Sharqia", "Damietta", "Gharbiya", "Qalioubiya"],
+                        "data": [360, 219, 155, 87, 79, 79, 53, 37, 34, 34]
+                    },
+                    "top_institutions": {
+                        "labels": ["Mansoura University", "Helwan University", "AASTMT", "Zagazig University", "Cairo University", "Benha University", "Delta University", "Alexandria University", "HTI Institute", "Nile University"],
+                        "data": [40, 27, 25, 21, 14, 11, 7, 7, 6, 6]
+                    }
                 },
-                "gender": [63.6, 36.4],
-                "marketing": {
-                    "labels": ["Facebook", "LinkedIn", "MoM", "Emails", "Partner", "Instagram"],
-                    "data": [103, 75, 40, 18, 16, 4]
+                "schools": {
+                    "kpi": {
+                        "teams": 703,
+                        "members": 1352,
+                        "valid": 676,
+                        "institutions": 115,
+                        "supervisors": 501
+                    },
+                    "gender": [57.4, 42.6],
+                    "marketing": {
+                        "labels": ["Facebook", "MoM", "Partner", "Emails", "Instagram", "LinkedIn"],
+                        "data": [282, 208, 71, 70, 65, 46]
+                    },
+                    "governorates": {
+                        "labels": ["Cairo", "Alexandria", "Giza", "Daqahliya", "Damietta", "Gharbia", "Kafr el-Sheikh", "Dakahlia", "Menofia", "Assiut"],
+                        "data": [144, 93, 71, 61, 39, 38, 33, 32, 30, 30]
+                    },
+                    "top_institutions": {
+                        "labels": ["STEM Dakahlia", "STEM 6th of October", "STEM Red Sea", "STEM Kafr El Sheikh", "STEM Sharkya", "STEM Obour", "STEM Gharbia", "STEM Alexandria", "STEM Qena", "STEM Maadi"],
+                        "data": [78, 38, 35, 35, 19, 17, 16, 16, 15, 13]
+                    }
                 },
-                "governorates": {
-                    "labels": ["Cairo", "Daqahliya", "Giza", "Alexandria", "Sharqiya", "Dakahlia", "Al-Sharqia", "Damietta", "Gharbiya", "Qalioubiya"],
-                    "data": [360, 219, 155, 87, 79, 79, 53, 37, 34, 34]
-                },
-                "top_institutions": {
-                    "labels": ["Mansoura University", "Helwan University", "AASTMT", "Zagazig University", "Cairo University", "Benha University", "Alexandria University", "Delta University", "HTI Institute", "Nile University"],
-                    "data": [40, 27, 25, 21, 14, 11, 7, 7, 6, 6]
+                "general": {
+                    "kpi": {
+                        "teams": 1118,
+                        "members": 3426,
+                        "valid": 1055,
+                        "institutions": 240,
+                        "supervisors": 910
+                    },
+                    "gender": [62.0, 38.0],
+                    "marketing": {
+                        "labels": ["Facebook", "MoM", "LinkedIn", "Emails", "Partner", "Instagram"],
+                        "data": [446, 270, 188, 99, 96, 71]
+                    },
+                    "governorates": {
+                        "labels": ["Cairo", "Daqahliya", "Giza", "Alexandria", "Dakahlia", "Sharqiya", "Damietta", "Al-Sharqia", "Gharbia", "Gharbiya"],
+                        "data": [504, 280, 226, 180, 111, 83, 76, 63, 54, 53]
+                    },
+                    "top_institutions": {
+                        "labels": ["STEM Dakahlia", "Mansoura University", "STEM 6th of October", "STEM Kafr El Sheikh", "STEM Red Sea", "Helwan University", "AASTMT", "Zagazig University", "STEM Sharkya", "STEM Obour"],
+                        "data": [78, 40, 38, 36, 35, 27, 25, 21, 19, 17]
+                    }
                 }
             },
-            "schools": {
-                "kpi": {
-                    "teams": 400,
-                    "members": 723,
-                    "valid": 342,
-                    "institutions": 86,
-                    "supervisors": 298
+            "2024": {
+                "universities": {
+                    "kpi": {
+                        "teams": 159,
+                        "members": 772,
+                        "valid": 123,
+                        "institutions": 59,
+                        "supervisors": 158
+                    },
+                    "gender": [66.1, 33.9],
+                    "marketing": {
+                        "labels": ["LinkedIn", "Facebook", "MoM", "Emails", "Partner", "Instagram"],
+                        "data": [67, 61, 22, 11, 9, 2]
+                    },
+                    "governorates": {
+                        "labels": ["Daqahliya", "Cairo", "Alexandria", "Giza", "Gharbiya", "Sharqiya", "Damietta", "Qalioubiya", "Assiut", "Kafr El Sheikh"],
+                        "data": [282, 216, 70, 67, 65, 57, 39, 33, 31, 30]
+                    },
+                    "top_institutions": {
+                        "labels": ["Mansoura University", "AASTMT", "Zagazig University", "Helwan University", "Cairo University", "Benha University", "Alexandria University", "Misr International University", "Al-Azhar University", "Msa University"],
+                        "data": [37, 11, 9, 7, 7, 7, 5, 5, 3, 3]
+                    }
                 },
-                "gender": [57.7, 42.3],
-                "marketing": {
-                    "labels": ["Facebook", "MoM", "Partner", "LinkedIn", "Instagram", "Emails"],
-                    "data": [163, 99, 52, 33, 30, 23]
+                "schools": {
+                    "kpi": {
+                        "teams": 303,
+                        "members": 629,
+                        "valid": 276,
+                        "institutions": 40,
+                        "supervisors": 203
+                    },
+                    "gender": [57.0, 43.0],
+                    "marketing": {
+                        "labels": ["Facebook", "MoM", "Emails", "Instagram", "Partner", "LinkedIn"],
+                        "data": [119, 109, 47, 35, 19, 13]
+                    },
+                    "governorates": {
+                        "labels": ["Cairo", "Daqahliya", "Giza", "Damietta", "Alexandria", "Monofiya", "Kafr El Sheikh", "Assiut", "Qalioubiya", "Sharqiya"],
+                        "data": [153, 89, 77, 48, 43, 38, 35, 22, 21, 20]
+                    },
+                    "top_institutions": {
+                        "labels": ["STEM Dakahlia", "STEM 6th of October", "STEM Assiut", "STEM Maadi", "STEM School (Other)", "STEM Kafr El Sheikh", "STEM Sharkya", "STEM Obour", "STEM Qena", "STEM Fayoum"],
+                        "data": [73, 33, 27, 24, 21, 20, 17, 14, 9, 7]
+                    }
                 },
-                "governorates": {
-                    "labels": ["Cairo", "Alexandria", "Giza", "Daqahliya", "Damietta", "Gharbia", "Kafr el-Sheikh", "Dakahlia", "Menofia", "Assiut"],
-                    "data": [144, 93, 71, 61, 39, 38, 33, 32, 30, 30]
-                },
-                "top_institutions": {
-                    "labels": ["STEM Dakahlia", "STEM 6th of October", "STEM Kafr El Sheikh", "STEM Red Sea", "STEM Sharkya", "STEM Obour", "STEM Alexandria", "STEM Gharbia", "STEM Menofia", "STEM Minya"],
-                    "data": [78, 38, 37, 35, 19, 17, 17, 16, 14, 11]
+                "general": {
+                    "kpi": {
+                        "teams": 462,
+                        "members": 1401,
+                        "valid": 399,
+                        "institutions": 97,
+                        "supervisors": 361
+                    },
+                    "gender": [62.5, 37.5],
+                    "marketing": {
+                        "labels": ["Facebook", "MoM", "LinkedIn", "Emails", "Instagram", "Partner"],
+                        "data": [180, 131, 80, 58, 37, 28]
+                    },
+                    "governorates": {
+                        "labels": ["Daqahliya", "Cairo", "Giza", "Alexandria", "Damietta", "Gharbia", "Sharqiya", "Kafr El Sheikh", "Monofiya", "Qalioubiya"],
+                        "data": [371, 369, 144, 113, 87, 81, 77, 65, 60, 54]
+                    },
+                    "top_institutions": {
+                        "labels": ["STEM Dakahlia", "Mansoura University", "STEM 6th of October", "STEM Assiut", "STEM Maadi", "STEM School (Other)", "STEM Kafr El Sheikh", "STEM Sharkya", "STEM Obour", "AASTMT"],
+                        "data": [73, 37, 33, 27, 24, 21, 20, 17, 14, 12]
+                    }
                 }
             },
-            "general": {
-                "kpi": {
-                    "teams": 656,
-                    "members": 2025,
-                    "valid": 572,
-                    "institutions": 154,
-                    "supervisors": 549
+            "2025": {
+                "universities": {
+                    "kpi": {
+                        "teams": 256,
+                        "members": 1302,
+                        "valid": 256,
+                        "institutions": 72,
+                        "supervisors": 251
+                    },
+                    "gender": [63.6, 36.4],
+                    "marketing": {
+                        "labels": ["Facebook", "LinkedIn", "MoM", "Emails", "Partner", "Instagram"],
+                        "data": [103, 75, 40, 18, 16, 4]
+                    },
+                    "governorates": {
+                        "labels": ["Cairo", "Daqahliya", "Giza", "Alexandria", "Sharqiya", "Dakahlia", "Al-Sharqia", "Damietta", "Gharbiya", "Qalioubiya"],
+                        "data": [360, 219, 155, 87, 79, 79, 53, 37, 34, 34]
+                    },
+                    "top_institutions": {
+                        "labels": ["Mansoura University", "Helwan University", "AASTMT", "Zagazig University", "Cairo University", "Benha University", "Delta University", "Alexandria University", "HTI Institute", "Nile University"],
+                        "data": [40, 27, 25, 21, 14, 11, 7, 7, 6, 6]
+                    }
                 },
-                "gender": [61.5, 38.5],
-                "marketing": {
-                    "labels": ["Facebook", "MoM", "LinkedIn", "Partner", "Emails", "Instagram"],
-                    "data": [266, 139, 108, 68, 41, 34]
+                "schools": {
+                    "kpi": {
+                        "teams": 400,
+                        "members": 723,
+                        "valid": 400,
+                        "institutions": 75,
+                        "supervisors": 298
+                    },
+                    "gender": [57.7, 42.3],
+                    "marketing": {
+                        "labels": ["Facebook", "MoM", "Partner", "LinkedIn", "Instagram", "Emails"],
+                        "data": [163, 99, 52, 33, 30, 23]
+                    },
+                    "governorates": {
+                        "labels": ["Cairo", "Alexandria", "Giza", "Daqahliya", "Damietta", "Gharbia", "Kafr el-Sheikh", "Dakahlia", "Menofia", "Assiut"],
+                        "data": [144, 93, 71, 61, 39, 38, 33, 32, 30, 30]
+                    },
+                    "top_institutions": {
+                        "labels": ["STEM Dakahlia", "STEM 6th of October", "STEM Red Sea", "STEM Kafr El Sheikh", "STEM Sharkya", "STEM Obour", "STEM Gharbia", "STEM Alexandria", "STEM Qena", "STEM Maadi"],
+                        "data": [78, 38, 35, 35, 19, 17, 16, 16, 15, 13]
+                    }
                 },
-                "governorates": {
-                    "labels": ["Cairo", "Daqahliya", "Giza", "Alexandria", "Dakahlia", "Sharqiya", "Damietta", "Al-Sharqia", "Gharbia", "Gharbiya"],
-                    "data": [504, 280, 226, 180, 111, 83, 76, 63, 54, 53]
-                },
-                "top_institutions": {
-                    "labels": ["STEM Dakahlia", "Mansoura University", "STEM 6th of October", "STEM Kafr El Sheikh", "STEM Red Sea", "Helwan University", "AASTMT", "Zagazig University", "STEM Sharkya", "STEM Obour"],
-                    "data": [78, 40, 38, 37, 35, 27, 25, 21, 19, 17]
+                "general": {
+                    "kpi": {
+                        "teams": 656,
+                        "members": 2025,
+                        "valid": 656,
+                        "institutions": 143,
+                        "supervisors": 549
+                    },
+                    "gender": [61.5, 38.5],
+                    "marketing": {
+                        "labels": ["Facebook", "MoM", "LinkedIn", "Partner", "Emails", "Instagram"],
+                        "data": [266, 139, 108, 68, 41, 34]
+                    },
+                    "governorates": {
+                        "labels": ["Cairo", "Daqahliya", "Giza", "Alexandria", "Dakahlia", "Sharqiya", "Damietta", "Al-Sharqia", "Gharbia", "Gharbiya"],
+                        "data": [504, 280, 226, 180, 111, 83, 76, 63, 54, 53]
+                    },
+                    "top_institutions": {
+                        "labels": ["STEM Dakahlia", "Mansoura University", "STEM 6th of October", "STEM Kafr El Sheikh", "STEM Red Sea", "Helwan University", "AASTMT", "Zagazig University", "STEM Sharkya", "STEM Obour"],
+                        "data": [78, 40, 38, 36, 35, 27, 25, 21, 19, 17]
+                    }
                 }
             }
         };
@@ -871,144 +1048,108 @@
             });
         }
 
-        function switchTab(tab) {
-            // Update Buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                const isActive = btn.textContent.toLowerCase().includes(tab) || (tab === 'general' && btn.textContent.toLowerCase().includes('general'));
-                if (btn.textContent.toLowerCase() === tab) {
+        // State
+        let activeYear = 'overall';
+        let activeCategory = 'general';
+
+        function switchYear(year) {
+            activeYear = year;
+            document.querySelectorAll('.year-btn').forEach(btn => {
+                if (btn.textContent.toLowerCase() === year) {
                     btn.classList.add('active');
                 } else {
                     btn.classList.remove('active');
                 }
             });
 
-            // Get Data
-            const data = dashboardData[tab];
+            // Update Header Subtext
+            document.getElementById('sub-header-text').textContent = (year === 'overall' ? 'Overall' : year) + ' Registration Analytics Dashboard';
+
+            refreshUI();
+        }
+
+        function switchCategory(cat) {
+            activeCategory = cat;
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if (btn.textContent.toLowerCase() === cat) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            refreshUI();
+        }
+
+        function refreshUI() {
+            const data = dashboardData[activeYear][activeCategory];
             if (!data) return;
 
             // Update KPIs
-            animateValue('totalTeams', parseInt(document.getElementById('totalTeams').textContent.replace(/,/g, '')), data.kpi.teams, 500);
-            animateValue('totalMembers', parseInt(document.getElementById('totalMembers').textContent.replace(/,/g, '')), data.kpi.members, 500);
-            animateValue('validTeams', parseInt(document.getElementById('validTeams').textContent.replace(/,/g, '')), data.kpi.valid, 500);
+            animateValue('totalTeams', 0, data.kpi.teams, 500);
+            animateValue('totalMembers', 0, data.kpi.members, 500);
+            animateValue('validTeams', 0, data.kpi.valid, 500);
+            animateValue('universities', 0, data.kpi.institutions, 500);
+            animateValue('supervisors', 0, data.kpi.supervisors, 500);
 
-            // New KPI updates: Supervisors and Institutions
-
-            animateValue('universities', parseInt(document.getElementById('universities').textContent.replace(/,/g, '') || 0), data.kpi.institutions, 500);
-            animateValue('supervisors', parseInt(document.getElementById('supervisors').textContent.replace(/,/g, '') || 0), data.kpi.supervisors, 500);
-
-            // Update Labels for dynamic cards
-            const instLabel = (tab === 'schools') ? 'Schools' : (tab === 'universities' ? 'Universities' : 'Universities & Schools');
+            // Update Labels
+            const instLabel = (activeCategory === 'schools') ? 'Schools' : (activeCategory === 'universities' ? 'Universities' : 'Universities & Schools');
             document.querySelector('#universities + .kpi-label').textContent = instLabel;
 
-            // Calculate %
-            const validPct = data.kpi.teams > 0 ? ((data.kpi.valid / data.kpi.teams) * 100).toFixed(1) + '%' : '0%';
-            // Badge removed from HTML as requested
-
             // Visibility Toggles
-            const isGeneral = tab === 'general';
+            document.getElementById('gp-card').style.display = (activeCategory === 'general' || activeCategory === 'universities') ? 'flex' : 'none';
+            document.getElementById('hs-card').style.display = (activeCategory === 'general' || activeCategory === 'schools') ? 'flex' : 'none';
 
-            // Layout Logic:
-
-            // 1. tracks-row (Row 2) visibility
-            // It should be visible if ANY of its children are visible.
-            // GP, HS, Gender.
-            // Gender is always visible now? "Make Grad, HS, Gender in 1 row" -> always visible row?
-            // Let's keep Row 2 visible.
-            document.getElementById('tracks-row').style.display = 'grid';
-
-            // 2. Control individual cards
-            // GP Card: Visible on General OR Universities
-            document.getElementById('gp-card').style.display = (tab === 'general' || tab === 'universities') ? 'flex' : 'none';
-
-            // HS Card: Visible on General OR Schools
-            document.getElementById('hs-card').style.display = (tab === 'general' || tab === 'schools') ? 'flex' : 'none';
-
-            // Gender Card: Always visible
-            document.getElementById('gender-card').style.display = 'block';
-
-            // Row 3 Cards: Always visible
-            document.getElementById('marketing-card').style.display = 'block';
-            document.getElementById('governorates-card').style.display = 'block';
-            document.getElementById('universities-card').style.display = 'block';
-
-            // Grid structure: Row 2 has 3 items in General, 2 in others. Row 3 has 3 items.
+            // Layout
             const row2 = document.getElementById('tracks-row');
-            const row3 = document.querySelector('.row-3');
-
-            if (isGeneral) {
+            if (activeCategory === 'general') {
                 row2.style.gridTemplateColumns = 'repeat(3, 1fr)';
             } else {
                 row2.style.gridTemplateColumns = 'repeat(2, 1fr)';
             }
-            row3.style.gridTemplateColumns = 'repeat(3, 1fr)';
 
-            // Chart Updates
-
-            // Gender
+            // Charts
             if (data.gender) {
                 genderChart.data.datasets[0].data = data.gender;
                 genderChart.update();
             }
 
-            // Marketing
             const marketingColorMap = {
-                'Facebook': colors.primary,
-                'LinkedIn': colors.secondary,
-                'Partner': colors.success,
-                'Instagram': colors.accent,
-                'MoM': colors.warning,
-                'Emails': colors.danger
+                'Facebook': colors.primary, 'LinkedIn': colors.secondary, 'Partner': colors.success,
+                'Instagram': colors.accent, 'MoM': colors.warning, 'Emails': colors.danger
             };
             marketingChart.data.labels = data.marketing.labels;
             marketingChart.data.datasets[0].data = data.marketing.data;
             marketingChart.data.datasets[0].backgroundColor = data.marketing.labels.map(l => marketingColorMap[l] || colors.purple);
             marketingChart.update();
 
-            // Governorates
             governoratesChart.data.labels = data.governorates.labels;
             governoratesChart.data.datasets[0].data = data.governorates.data;
             governoratesChart.update();
 
-            // Top Institutions
             universitiesChart.data.labels = data.top_institutions.labels;
             universitiesChart.data.datasets[0].data = data.top_institutions.data;
-
-            // Rename Title
-            const instTitle = (tab === 'schools') ? 'Top Schools' : (tab === 'general' ? 'Top Registrations' : 'Top Universities');
+            const instTitle = (activeCategory === 'schools') ? 'Top Schools' : (activeCategory === 'general' ? 'Top Registrations' : 'Top Universities');
             document.querySelector('#universities-card .chart-title').innerHTML = `<span class="chart-title-icon">🏛️</span> ${instTitle}`;
-
             universitiesChart.update();
+
+            // Track Cards (Specific to Year data)
+            const yearData = dashboardData[activeYear];
+            document.getElementById('gp-teams').textContent = yearData.universities.kpi.teams.toLocaleString();
+            document.getElementById('gp-members').textContent = yearData.universities.kpi.members.toLocaleString();
+            document.getElementById('gp-valid').textContent = yearData.universities.kpi.valid.toLocaleString();
+
+            document.getElementById('hs-teams').textContent = yearData.schools.kpi.teams.toLocaleString();
+            document.getElementById('hs-members').textContent = yearData.schools.kpi.members.toLocaleString();
+            document.getElementById('hs-valid').textContent = yearData.schools.kpi.valid.toLocaleString();
         }
 
         function animateValue(id, start, end, duration) {
-            // specific logic omitted for brevity, just set value
             document.getElementById(id).textContent = end.toLocaleString();
         }
 
-        // Init
-        initCharts();
-        switchTab('general');
-
-
-
-
-        function updateTrackCards() {
-            // Graduation Projects (Universities)
-            const gradData = dashboardData.universities.kpi;
-            document.getElementById('gp-teams').textContent = gradData.teams.toLocaleString();
-            document.getElementById('gp-members').textContent = gradData.members.toLocaleString();
-            document.getElementById('gp-valid').textContent = gradData.valid.toLocaleString();
-
-            // High Schools
-            const schoolData = dashboardData.schools.kpi;
-            document.getElementById('hs-teams').textContent = schoolData.teams.toLocaleString();
-            document.getElementById('hs-members').textContent = schoolData.members.toLocaleString();
-            document.getElementById('hs-valid').textContent = schoolData.valid.toLocaleString();
-        }
-
         window.addEventListener('load', () => {
-            // Initial load handled by switchTab('general')
-            updateTrackCards();
+            initCharts();
+            refreshUI();
         });
     </script>
 </body>
